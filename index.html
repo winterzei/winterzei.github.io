@@ -26,9 +26,8 @@
             width: 90%;
             max-width: 600px;       /* keeps text in a neat box */
             line-height: 1.2em;
-            word-wrap: break-word;
-            flex: 1;
             white-space: pre-wrap;   /* preserve line breaks */
+            word-wrap: break-word;
         }
 
         /* INPUT AREA */
@@ -37,8 +36,8 @@
         }
 
         input {
-            width: 90%;          /* responsive width */
-            max-width: 420px;    /* max width for desktop */
+            width: 90%;          
+            max-width: 420px;    
             height: 50px;
             border-radius: 30px;
             border: 1px solid black;
@@ -69,7 +68,7 @@
         /* MOBILE STYLES */
         @media (max-width: 600px) {
             .output {
-                font-size: 50px;    /* smaller text on mobile */
+                font-size: 50px;    
                 margin-top: 40px;
             }
 
@@ -106,31 +105,26 @@
 
     <script>
         function updateText(text) {
-    // Split input into words
-    let words = text.trim().split(/\s+/);
-    let result = "";
-    let lineWords = [];
-    const maxWordsPerLine = 3; // number of words per line
+            let words = text.trim().split(/\s+/);
+            let result = "";
+            let lineWords = [];
+            
+            for (let i = 0; i < words.length; i++) {
+                lineWords.push(words[i]);
 
-    for (let i = 0; i < words.length; i++) {
-        lineWords.push(words[i]);
+                // Randomly break line after 2+ words or at the end
+                if (lineWords.length >= 2 && (Math.random() < 0.5 || i === words.length - 1)) {
+                    // Add random spaces between words
+                    let line = lineWords.map(word => word + "&nbsp;".repeat(Math.floor(Math.random() * 6) + 1)).join('');
+                    result += line + "<br>";
+                    lineWords = [];
+                }
+            }
 
-        // Add line break after maxWordsPerLine words or at the end
-        if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
-            result += lineWords.join(" ") + "<br>";
-            lineWords = [];
+            // Show output instantly
+            document.getElementById("outputText").innerHTML = result;
         }
-    }
-
-    // Update the output using innerHTML
-    let output = document.getElementById("outputText");
-    output.innerHTML = result;
-
-    // Force line breaks to display in flex container
-    output.style.display = "block";
-}
     </script>
 
 </body>
 </html>
-
