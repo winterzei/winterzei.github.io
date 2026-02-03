@@ -105,31 +105,32 @@
 
     <script>
         function updateText(text) {
-            const words = text.trim().split(/\s+/);
-            let result = "";
-            let lineWords = [];
-            let maxWordsPerLine = 2 + Math.floor(Math.random() * 3); // 2–4 words per line randomly
+    const words = text.trim().split(/\s+/);
+    let result = "";
+    let lineWords = [];
+    
+    for (let i = 0; i < words.length; i++) {
+        lineWords.push(words[i]);
 
-            for (let i = 0; i < words.length; i++) {
-                lineWords.push(words[i]);
-
-                if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
-                    // Add selective random spaces between words
-                    const spacedLine = lineWords.map((w, idx) => {
-                        if (idx === lineWords.length - 1) return w; // no extra space after last word
-                        const spaces = "&nbsp;".repeat(Math.floor(Math.random() * 6) + 2); // 2–7 spaces
-                        return w + spaces;
-                    }).join('');
-                    
-                    result += spacedLine + "<br>";
-                    lineWords = [];
-                    maxWordsPerLine = 2 + Math.floor(Math.random() * 3); // new random line length
-                }
-            }
-
-            document.getElementById("outputText").innerHTML = result;
+        // break line if line has 2-4 words or at end
+        if (lineWords.length >= 2 && (lineWords.length >= Math.min(4, words.length - i) || i === words.length - 1)) {
+            // calculate spaces for this line
+            const spacedLine = lineWords.map((w, idx) => {
+                if (idx === lineWords.length - 1) return w; // no space after last word
+                // small random space: 1-4 spaces, keeps it less messy
+                const spaces = "&nbsp;".repeat(Math.floor(Math.random() * 4) + 1);
+                return w + spaces;
+            }).join('');
+            
+            result += spacedLine + "<br>";
+            lineWords = [];
         }
+    }
+
+    document.getElementById("outputText").innerHTML = result;
+}
     </script>
 
 </body>
 </html>
+
