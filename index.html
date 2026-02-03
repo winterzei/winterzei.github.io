@@ -63,6 +63,18 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        .output {
+    margin-top: 80px;
+    font-size: 80px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;      /* keeps it inside a neat box */
+    line-height: 1.2em;    /* control spacing between lines */
+    white-space: pre-wrap;  /* preserves line breaks */
+    word-wrap: break-word;
+}
 
         /* MOBILE STYLES */
         @media (max-width: 600px) {
@@ -104,29 +116,28 @@
 
     <script>
         function updateText(text) {
-    // Split input into words
     let words = text.split(" ");
     let result = "";
     let lineLength = 0;
-    const maxLineLength = 20; // max characters per line
+    const maxWordsPerLine = 3; // put 3 words per line
 
-    for (let word of words) {
-        // Add small random spacing
-        let spaces = "&nbsp;".repeat(Math.floor(Math.random() * 4) + 1); // 1-4 spaces
-        result += word + spaces;
-        lineLength += word.length + 1;
+    for (let i = 0; i < words.length; i++) {
+        result += words[i] + " ";
+        lineLength++;
 
-        // Insert line break if max line length reached
-        if (lineLength > maxLineLength) {
-            result += "<br>";
+        // break line every maxWordsPerLine words
+        if (lineLength >= maxWordsPerLine) {
+            result += "\n"; // preserve line break
             lineLength = 0;
         }
     }
 
-    document.getElementById("outputText").innerHTML = result;
+    document.getElementById("outputText").innerText = result;
 }
+
     </script>
 
 </body>
 </html>
+
 
