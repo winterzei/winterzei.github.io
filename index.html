@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +25,8 @@
             color: black;
             text-align: center;
             width: 90%;
-            max-width: 600px;       /* keeps text in a neat box */
-            line-height: 1.2em;
             word-wrap: break-word;
             flex: 1;
-            white-space: pre-wrap;   /* preserve line breaks */
         }
 
         /* INPUT AREA */
@@ -106,23 +104,7 @@
 
     <script>
         function updateText(text) {
-            // Split input into words
-            let words = text.trim().split(/\s+/);
-            let result = "";
-            let lineWords = [];
-            const maxWordsPerLine = 3; // change to 2 or 4 for shorter/longer lines
-
-            for (let i = 0; i < words.length; i++) {
-                lineWords.push(words[i]);
-
-                // Add a line break after maxWordsPerLine words or at the end
-                if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
-                    result += lineWords.join(" ") + "<br>";
-                    lineWords = [];
-                }
-            }
-
-            document.getElementById("outputText").innerHTML = result;
+            document.getElementById("outputText").innerText = text;
         }
     </script>
 
