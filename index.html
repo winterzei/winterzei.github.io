@@ -104,26 +104,26 @@
 
     <script>
         function updateText(text) {
-            // Split input into words
-            let words = text.split(" ");
-            let result = "";
-            let lineLength = 0;
+    // Split input into words
+    let words = text.split(" ");
+    let result = "";
+    let lineLength = 0;
 
-            for (let word of words) {
-                // Add random spaces (1-6) between words
-                let spaces = " ".repeat(Math.floor(Math.random() * 6) + 1);
-                result += word + spaces;
-                lineLength += word.length + spaces.length;
+    for (let word of words) {
+        // Add random spaces (1-6) between words
+        let spaces = "&nbsp;".repeat(Math.floor(Math.random() * 6) + 1); // use &nbsp; for HTML spacing
+        result += word + spaces;
+        lineLength += word.length + spaces.length;
 
-                // Randomly insert line break if line gets long
-                if (lineLength > 15 && Math.random() < 0.5) {
-                    result += "\n"; // newline
-                    lineLength = 0;
-                }
-            }
-
-            document.getElementById("outputText").innerText = result;
+        // Randomly insert line break if line gets long
+        if (lineLength > 15 && Math.random() < 0.5) {
+            result += "<br>"; // use <br> for HTML line break
+            lineLength = 0;
         }
+    }
+
+    document.getElementById("outputText").innerHTML = result; // use innerHTML instead of innerText
+}
     </script>
 
 </body>
