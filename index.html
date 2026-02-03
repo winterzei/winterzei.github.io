@@ -108,23 +108,25 @@
     let words = text.split(" ");
     let result = "";
     let lineLength = 0;
+    const maxLineLength = 20; // max characters per line
 
     for (let word of words) {
-        // Add random spaces (1-6) between words
-        let spaces = "&nbsp;".repeat(Math.floor(Math.random() * 6) + 1); // use &nbsp; for HTML spacing
+        // Add small random spacing
+        let spaces = "&nbsp;".repeat(Math.floor(Math.random() * 4) + 1); // 1-4 spaces
         result += word + spaces;
-        lineLength += word.length + spaces.length;
+        lineLength += word.length + 1;
 
-        // Randomly insert line break if line gets long
-        if (lineLength > 15 && Math.random() < 0.5) {
-            result += "<br>"; // use <br> for HTML line break
+        // Insert line break if max line length reached
+        if (lineLength > maxLineLength) {
+            result += "<br>";
             lineLength = 0;
         }
     }
 
-    document.getElementById("outputText").innerHTML = result; // use innerHTML instead of innerText
+    document.getElementById("outputText").innerHTML = result;
 }
     </script>
 
 </body>
 </html>
+
