@@ -14,36 +14,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
         }
 
-        /* OUTPUT TEXT - invisible box, absolutely positioned */
+        /* OUTPUT TEXT */
         .output {
-            position: absolute;
-            top: 50px; /* adjust vertical position */
-            left: 50%;
-            transform: translateX(-50%);
+            margin-top: 80px;
             font-size: 80px;
             font-weight: bold;
             color: black;
-            text-align: left;
+            text-align: left; /* left-align like a box */
             width: 90%;
             max-width: 600px;
-            white-space: pre;  /* preserves spaces & line breaks exactly */
-            line-height: 1.2em;
-            pointer-events: none; /* invisible box, doesn’t block typing */
+            word-wrap: normal;
+            white-space: pre; /* preserves all spaces and line breaks exactly */
         }
 
         /* INPUT AREA */
         .input-container {
-            margin-top: 450px; /* position input below output */
             margin-bottom: 20px;
-            z-index: 10;
         }
 
         input {
-            width: 90%;          
-            max-width: 420px;    
+            width: 90%;          /* responsive width */
+            max-width: 420px;    /* max width for desktop */
             height: 50px;
             border-radius: 30px;
             border: 1px solid black;
@@ -60,7 +53,6 @@
             color: black;
             margin-bottom: 20px;
             line-height: 1.8;
-            z-index: 10;
         }
 
         .footer a {
@@ -75,8 +67,8 @@
         /* MOBILE STYLES */
         @media (max-width: 600px) {
             .output {
-                font-size: 50px;    
-                top: 30px;
+                font-size: 50px;    /* smaller text on mobile */
+                margin-top: 40px;
             }
 
             input {
@@ -112,7 +104,7 @@
 
     <script>
         function updateText(text) {
-            // preserve all spaces and line breaks exactly
+            // preserve spaces and line breaks exactly as typed
             document.getElementById("outputText").textContent = text;
         }
     </script>
