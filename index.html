@@ -16,18 +16,16 @@
             align-items: center;
         }
 
-        /* OUTPUT TEXT */
+        /* OUTPUT TEXT - invisible box, preserves spacing exactly */
         .output {
             margin-top: 80px;
             font-size: 80px;
             font-weight: bold;
             color: black;
-            text-align: center;
+            text-align: left;  /* text aligns left like a box */
             width: 90%;
-            max-width: 600px;
-            line-height: 1.2em;
-            white-space: pre-wrap; 
-            word-wrap: break-word;
+            max-width: 600px;  /* keeps text in a box */
+            white-space: pre;  /* preserves all spaces and line breaks exactly */
         }
 
         /* INPUT AREA */
@@ -105,32 +103,10 @@
 
     <script>
         function updateText(text) {
-    const words = text.trim().split(/\s+/);
-    let result = "";
-    let lineWords = [];
-    
-    for (let i = 0; i < words.length; i++) {
-        lineWords.push(words[i]);
-
-        // break line if line has 2-4 words or at end
-        if (lineWords.length >= 2 && (lineWords.length >= Math.min(4, words.length - i) || i === words.length - 1)) {
-            // calculate spaces for this line
-            const spacedLine = lineWords.map((w, idx) => {
-                if (idx === lineWords.length - 1) return w; // no space after last word
-                // small random space: 1-4 spaces, keeps it less messy
-                const spaces = "&nbsp;".repeat(Math.floor(Math.random() * 4) + 1);
-                return w + spaces;
-            }).join('');
-            
-            result += spacedLine + "<br>";
-            lineWords = [];
+            // output exactly as typed, preserving spaces and line breaks
+            document.getElementById("outputText").textContent = text;
         }
-    }
-
-    document.getElementById("outputText").innerHTML = result;
-}
     </script>
 
 </body>
 </html>
-
