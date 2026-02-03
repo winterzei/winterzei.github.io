@@ -106,25 +106,31 @@
 
     <script>
         function updateText(text) {
-            // Split input into words
-            let words = text.trim().split(/\s+/);
-            let result = "";
-            let lineWords = [];
-            const maxWordsPerLine = 3; // change to 2 or 4 for shorter/longer lines
+    // Split input into words
+    let words = text.trim().split(/\s+/);
+    let result = "";
+    let lineWords = [];
+    const maxWordsPerLine = 3; // number of words per line
 
-            for (let i = 0; i < words.length; i++) {
-                lineWords.push(words[i]);
+    for (let i = 0; i < words.length; i++) {
+        lineWords.push(words[i]);
 
-                // Add a line break after maxWordsPerLine words or at the end
-                if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
-                    result += lineWords.join(" ") + "<br>";
-                    lineWords = [];
-                }
-            }
-
-            document.getElementById("outputText").innerHTML = result;
+        // Add line break after maxWordsPerLine words or at the end
+        if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
+            result += lineWords.join(" ") + "<br>";
+            lineWords = [];
         }
+    }
+
+    // Update the output using innerHTML
+    let output = document.getElementById("outputText");
+    output.innerHTML = result;
+
+    // Force line breaks to display in flex container
+    output.style.display = "block";
+}
     </script>
 
 </body>
 </html>
+
