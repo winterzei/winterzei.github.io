@@ -22,11 +22,12 @@
             font-size: 80px;
             font-weight: bold;
             color: black;
-            text-align: left; /* left-align like a box */
+            text-align: center;
             width: 90%;
             max-width: 600px;
-            word-wrap: normal;
-            white-space: pre; /* preserves all spaces and line breaks exactly */
+            line-height: 1.2em;
+            white-space: pre-wrap; 
+            word-wrap: break-word;
         }
 
         /* INPUT AREA */
@@ -35,8 +36,8 @@
         }
 
         input {
-            width: 90%;          /* responsive width */
-            max-width: 420px;    /* max width for desktop */
+            width: 90%;          
+            max-width: 420px;    
             height: 50px;
             border-radius: 30px;
             border: 1px solid black;
@@ -67,7 +68,7 @@
         /* MOBILE STYLES */
         @media (max-width: 600px) {
             .output {
-                font-size: 50px;    /* smaller text on mobile */
+                font-size: 50px;    
                 margin-top: 40px;
             }
 
@@ -104,8 +105,29 @@
 
     <script>
         function updateText(text) {
-            // preserve spaces and line breaks exactly as typed
-            document.getElementById("outputText").textContent = text;
+            const words = text.trim().split(/\s+/);
+            let result = "";
+            let lineWords = [];
+            let maxWordsPerLine = 2 + Math.floor(Math.random() * 3); // 2–4 words per line randomly
+
+            for (let i = 0; i < words.length; i++) {
+                lineWords.push(words[i]);
+
+                if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
+                    // Add selective random spaces between words
+                    const spacedLine = lineWords.map((w, idx) => {
+                        if (idx === lineWords.length - 1) return w; // no extra space after last word
+                        const spaces = "&nbsp;".repeat(Math.floor(Math.random() * 6) + 2); // 2–7 spaces
+                        return w + spaces;
+                    }).join('');
+                    
+                    result += spacedLine + "<br>";
+                    lineWords = [];
+                    maxWordsPerLine = 2 + Math.floor(Math.random() * 3); // new random line length
+                }
+            }
+
+            document.getElementById("outputText").innerHTML = result;
         }
     </script>
 
