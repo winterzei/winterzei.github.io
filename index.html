@@ -26,8 +26,9 @@
             width: 90%;
             max-width: 600px;       /* keeps text in a neat box */
             line-height: 1.2em;
-            white-space: pre-wrap;   /* preserve line breaks */
             word-wrap: break-word;
+            flex: 1;
+            white-space: pre-wrap;   /* preserve line breaks */
         }
 
         /* INPUT AREA */
@@ -36,8 +37,8 @@
         }
 
         input {
-            width: 90%;          
-            max-width: 420px;    
+            width: 90%;          /* responsive width */
+            max-width: 420px;    /* max width for desktop */
             height: 50px;
             border-radius: 30px;
             border: 1px solid black;
@@ -68,7 +69,7 @@
         /* MOBILE STYLES */
         @media (max-width: 600px) {
             .output {
-                font-size: 50px;    
+                font-size: 50px;    /* smaller text on mobile */
                 margin-top: 40px;
             }
 
@@ -105,23 +106,22 @@
 
     <script>
         function updateText(text) {
+            // Split input into words
             let words = text.trim().split(/\s+/);
             let result = "";
             let lineWords = [];
-            
+            const maxWordsPerLine = 3; // change to 2 or 4 for shorter/longer lines
+
             for (let i = 0; i < words.length; i++) {
                 lineWords.push(words[i]);
 
-                // Randomly break line after 2+ words or at the end
-                if (lineWords.length >= 2 && (Math.random() < 0.5 || i === words.length - 1)) {
-                    // Add random spaces between words
-                    let line = lineWords.map(word => word + "&nbsp;".repeat(Math.floor(Math.random() * 6) + 1)).join('');
-                    result += line + "<br>";
+                // Add a line break after maxWordsPerLine words or at the end
+                if (lineWords.length >= maxWordsPerLine || i === words.length - 1) {
+                    result += lineWords.join(" ") + "<br>";
                     lineWords = [];
                 }
             }
 
-            // Show output instantly
             document.getElementById("outputText").innerHTML = result;
         }
     </script>
